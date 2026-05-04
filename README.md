@@ -1,4 +1,4 @@
-# ReactJS projects
+# React projects
 
 This is some projects that I learned from some video on Youtube:
 
