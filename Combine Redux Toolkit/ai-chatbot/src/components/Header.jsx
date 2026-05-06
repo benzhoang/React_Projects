@@ -1,32 +1,47 @@
-import React from 'react'
-import { Bot, Sparkles, Sun, Moon } from 'lucide-react'
+import { Bot, Sparkles, Sun, Moon } from "lucide-react";
 
-
-const Header = ({toggleDarkMode, darkMode}) => {
+const Header = ({ toggleDarkMode, isDarkMode }) => {
   return (
-    <header className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-white'} shadow-lg px-6 py-4 border-b ${darkMode? 'border-gray-700' : 'border-gray-200'}`}>
+    <header
+      className={`${isDarkMode ? "bg-gray-800 text-white" : "bg-white"} shadow-lg px-6 py-4 border-b 
+      ${isDarkMode ? "border-gray-700" : "border-gray-200"}`}
+    >
       <div className="flex items-center justify-between max-w-5xl mx-auto">
-      {/* Left Side Content */}
-      <div className="flex items-center space-x-3">
-      <div className="p-2 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 rounded-full">
-        <Bot className="w-6 h-6 text-white"/>
+        {/* Left Side Content */}
+        <div className="flex items-center space-x-3">
+          <div className="p-2 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 rounded-full">
+            <Bot className="w-6 h-6 text-white" />
+          </div>
+          <h1 className="text-xl font-bold">AI Chatbot</h1>
         </div>
-        <h1 className="text-xl font-bold">AI Chatbot</h1>
-      </div>
 
-      {/* Right Side Content */}
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-1 px-3 py-1 rounded text-sm font-medium">
-            <Sparkles className={`${darkMode ? 'text-indigo-400' : 'text-indigo-600'} h-4 w-4`}/>
-            <span className={`${darkMode ? 'text-indigo-300' : 'text-indigo-700'} text-sm font-medium`}>AI Powered</span>
-        </div>
-        <button className={`${darkMode ? 'bg-gray-700 text-yellow-300' : 'bg-indigo-100 text-indigo-700'} p-2 rounded-full cursor-pointer`} onClick={toggleDarkMode}>
-            {darkMode ? <Sun/> : <Moon/>}
-        </button>
+        {/* Right Side Content */}
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-1 px-3 py-1 rounded text-sm font-medium">
+            <Sparkles
+              className={`${
+                isDarkMode ? "text-indigo-400" : "text-gray-800"
+              } h-4 w-4`}
+            />
+            <span
+              className={`${
+                isDarkMode ? "text-indigo-300" : "text-gray-800"
+              } text-sm font-medium`}
+            >
+              AI Powered
+            </span>
+          </div>
+          <button
+            className={`${isDarkMode ? "bg-gray-700 text-yellow-300" : "bg-indigo-100 text-indigo-700"} 
+            p-2 rounded-full cursor-pointer`}
+            onClick={toggleDarkMode}
+          >
+            {isDarkMode ? <Sun /> : <Moon />}
+          </button>
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
