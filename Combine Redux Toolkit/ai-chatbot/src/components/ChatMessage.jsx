@@ -1,9 +1,9 @@
 import { Bot, User } from "lucide-react";
 
-const ChatMessage = ({ isDarkMode, messages }) => {
+const ChatMessage = ({ isDarkMode, messages, formatTime }) => {
   return (
     <div
-      className={`${messages.sender === "user" ? "justify-end" : "justify-start"}`}
+      className={`flex ${messages.sender === "user" ? "justify-end" : "justify-start"}`}
     >
       <div
         className={`${
@@ -23,6 +23,21 @@ const ChatMessage = ({ isDarkMode, messages }) => {
           ) : (
             <Bot className="h-5 w-5" />
           )}
+        </div>
+        <div className="flex-1">
+          <div className="mb-1 flex justify-between items-center">
+            <span className="font-medium">
+              {messages.sender === "user" ? "You" : "AI Assistant"}
+            </span>
+            <span
+              className={`text-xs ml-3 ${messages.sender === "user" ? "opacity-70" : isDarkMode ? "text-gray-400" : "text-gray-500"}`}
+            >
+              {formatTime(messages.timestamp)}
+            </span>
+          </div>
+          <p className="text-sm md:text-base whitespace-pre-wrap break-words leading-relaxed">
+            {messages.text}
+          </p>
         </div>
       </div>
     </div>

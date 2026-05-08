@@ -10,3 +10,5 @@ This is some projects that I learned from some video on Youtube:
 - TicTacToe: https://youtu.be/lYtPscvwgP4?si=i39uBxY1ysLLNoOm
 
 **Folder Combine Redux Toolkit:**
+
+- AI Chatbot: https://youtu.be/tn7xEwwruZA?si=fVbnPVHYZoqv_3jq
