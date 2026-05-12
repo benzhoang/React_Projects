@@ -1,10 +1,12 @@
-import RecordTable from "./components/RecordTable";
+import { Provider } from "react-redux";
+import EmployeeTable from "./components/EmployeeTable";
+import { store } from "./store/store";
 
 const App = () => {
   return (
-    <div>
-      <RecordTable />
-    </div>
+    <Provider store={store}>
+      <EmployeeTable />
+    </Provider>
   );
 };
 

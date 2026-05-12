@@ -1,6 +1,7 @@
 import { Edit2, Plus, Search, Trash2 } from "lucide-react";
+import EmployeeModal from "./EmployeeModal";
 
-const RecordTable = () => {
+const EmployeeTable = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
@@ -102,7 +103,7 @@ const RecordTable = () => {
             </table>
           </div>
 
-          {/* Footer*/}
+          {/* Footer */}
           <div className="bg-gray-50 px-5 py-3 border-t border-gray-200">
             <p className="text-sm text-gray-600">
               Showing Sorted Records of All Records
@@ -110,10 +111,10 @@ const RecordTable = () => {
           </div>
         </div>
       </div>
+      {/* Model */}
+      <EmployeeModal />
     </div>
-
-    //Model
   );
 };
 
-export default RecordTable;
+export default EmployeeTable;
