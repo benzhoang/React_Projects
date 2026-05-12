@@ -1,7 +1,9 @@
+import RecordTable from "./components/RecordTable";
+
 const App = () => {
   return (
     <div>
-      <h1>CRUD Application</h1>
+      <RecordTable />
     </div>
   );
 };
