@@ -1,7 +1,71 @@
 import { Edit2, Plus, Search, Trash2 } from "lucide-react";
 import EmployeeModal from "./EmployeeModal";
+import {
+  deleteEmployee,
+  setSearchTerm,
+  selectAllEmployees,
+  selectSearchTerm,
+  selectFilteredEmployees,
+} from "../store/employeesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const EmployeeTable = () => {
+  const dispatch = useDispatch();
+  const filteredEmployees = useSelector(selectFilteredEmployees);
+  const allEmployees = useSelector(selectAllEmployees);
+  const searchTerm = useSelector(selectSearchTerm);
+
+  const storedEmployees = [...filteredEmployees].sort((a, b) => b.id - a.id);
+
+  const [showModal, setShowModal] = useState(false);
+  const [currentEmployee, setCurrentEmployee] = useState(null);
+
+  const openCreateModal = () => {
+    setShowModal(true);
+    setCurrentEmployee(null);
+  };
+
+  const openEditModal = (employee) => {
+    setShowModal(true);
+    setCurrentEmployee(employee);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentEmployee(null);
+  };
+
+  const handleDelete = (employee) => {
+    toast(
+      (t) => (
+        <div className="flex flex-col gap-2">
+          <span>Are you sure you want to delete {employee.name}?</span>
+          <div className="flex justify-end gap-2">
+            <button
+              className="bg-gray-300 text-white px-3 py-1 rounded hover:bg-gray-400 text-sm"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm"
+              onClick={() => {
+                dispatch(deleteEmployee(employee.id));
+                toast.dismiss(t.id);
+                toast.success(`Employee deleted successfully!`);
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ),
+      { duration: Infinity },
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
@@ -25,11 +89,16 @@ const EmployeeTable = () => {
               />
               <input
                 type="text"
+                value={searchTerm}
+                onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                 placeholder="Search by name, email or position"
                 className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <button className="flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
+            <button
+              className="flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all"
+              onClick={openCreateModal}
+            >
               <Plus size={20} />
               Add New Employee
             </button>
@@ -65,40 +134,56 @@ const EmployeeTable = () => {
 
               <tbody className="divide-y divide-gray-200">
                 {/* Conditional Rendering */}
-                <tr className="px-6 py-12 text-center text-gray-500">
-                  <td colSpan={6}>No Employees Found</td>
-                </tr>
-                {/* Else */}
-                {/* Map Method */}
-                <tr className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                    1
-                  </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                    Minh
-                  </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                    minh@gmail.com
-                  </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                    0192837489
-                  </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                    Full Stack Developer
-                  </td>
-                  <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                    <div className="flex items-center justify-center gap-2">
-                      <button className="flex items-center gap-1 bg-blue-600 text-white px-3 py-1.5 rounded hover:bg-blue-700 transition-all text-sm font-medium">
-                        <Edit2 size={16} />
-                        Edit
-                      </button>
-                      <button className="flex items-center gap-1 bg-red-600 text-white px-3 py-1.5 rounded hover:bg-red-700 transition-all text-sm font-medium">
-                        <Trash2 size={16} />
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                {storedEmployees.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan={6}
+                      className="px-6 py-12 text-center text-gray-500"
+                    >
+                      No Employee Found
+                    </td>
+                  </tr>
+                ) : (
+                  storedEmployees.map((employee) => {
+                    return (
+                      <tr className="hover:bg-gray-50 transition-colors">
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                          {employee.id}
+                        </td>
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                          {employee.name}
+                        </td>
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                          {employee.email}
+                        </td>
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                          {employee.phone}
+                        </td>
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                          {employee.position}
+                        </td>
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                          <div className="flex items-center justify-center gap-2">
+                            <button
+                              className="flex items-center gap-1 bg-blue-600 text-white px-3 py-1.5 rounded hover:bg-blue-700 transition-all text-sm font-medium"
+                              onClick={() => openEditModal(employee)}
+                            >
+                              <Edit2 size={16} />
+                              Edit
+                            </button>
+                            <button
+                              className="flex items-center gap-1 bg-red-600 text-white px-3 py-1.5 rounded hover:bg-red-700 transition-all text-sm font-medium"
+                              onClick={() => handleDelete(employee)}
+                            >
+                              <Trash2 size={16} />
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
           </div>
@@ -106,13 +191,17 @@ const EmployeeTable = () => {
           {/* Footer */}
           <div className="bg-gray-50 px-5 py-3 border-t border-gray-200">
             <p className="text-sm text-gray-600">
-              Showing Sorted Records of All Records
+              Showing {storedEmployees.length} of {allEmployees.length} Records
             </p>
           </div>
         </div>
       </div>
-      {/* Model */}
-      <EmployeeModal />
+      {/* Modal */}
+      <EmployeeModal
+        isOpen={showModal}
+        onClose={closeModal}
+        currentEmployee={currentEmployee}
+      />
     </div>
   );
 };

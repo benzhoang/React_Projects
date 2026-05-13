@@ -12,3 +12,4 @@ This is some projects that I learned from some video on Youtube:
 **Folder Combine Redux Toolkit:**
 
 - AI Chatbot: https://youtu.be/tn7xEwwruZA?si=fVbnPVHYZoqv_3jq
+- CRUD Application: https://youtu.be/yEhk3ujX8sE?si=eiJ2eFNv_oBrp0Vt
