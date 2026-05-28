@@ -1,6 +1,15 @@
 import { Star } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+    console.log("Product added to cart:", product);
+  };
+
   const ratingStart = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
       <Star
@@ -40,7 +49,10 @@ const ProductCard = ({ product }) => {
           <span className="text-2xl font-bold text-gray-900">
             ${product.price.toFixed()}
           </span>
-          <button className="group/btn bg-gray-200 text-gray-900 px-4 py-2 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer">
+          <button
+            className="group/btn bg-gray-200 text-gray-900 px-4 py-2 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+            onClick={handleAddToCart}
+          >
             <span className="font-medium">Add to Cart</span>
           </button>
         </div>

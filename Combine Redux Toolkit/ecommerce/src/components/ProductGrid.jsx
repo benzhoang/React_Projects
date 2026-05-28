@@ -1,5 +1,7 @@
 import ProductCard from "./ProductCard";
 import { products } from "../data/products";
+// import { useDispatch } from "react-redux";
+// import { addToCart } from "../store/cartSlice";
 
 const ProductGrid = () => {
   return (
