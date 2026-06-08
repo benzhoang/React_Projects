@@ -1,8 +1,14 @@
+import ProgressBar from "./ProgressBar";
+import Questions from "./Questions";
 import QuizStart from "./QuizStart";
+import Timer from "./Timer";
 
 const Quiz = () => {
   return (
-    <QuizStart />
+    <Questions />
+    // <Timer />
+    // <ProgressBar />
+    // <QuizStart />
     // <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
     //   <div className="max-w-4xl mx-auto mb-8">
     //     <div className="bg-white rounded-xl shadow-lg p-6">
