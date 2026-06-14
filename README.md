@@ -14,4 +14,4 @@ This is some projects that I learned from some video on Youtube:
 - AI Chatbot: https://youtu.be/tn7xEwwruZA?si=fVbnPVHYZoqv_3jq
 - CRUD Application: https://youtu.be/yEhk3ujX8sE?si=eiJ2eFNv_oBrp0Vt
 - ECommerce: https://youtu.be/IT3cyQ59sxU?si=A443cv7yPolZ5jBT
-- Quiz App: https://youtu.be/LNKRxuKeKcA?si=LSzdH9ih0_uelDJ5
+- To Do App: https://youtu.be/VpCT0mqkeDo?si=HqmYdbdx-7s9SWHe
