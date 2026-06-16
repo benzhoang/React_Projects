@@ -1,5 +1,11 @@
+import TodoApp from "./components/TodoApp";
+
 const App = () => {
-  return <h1 class="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <div>
+      <TodoApp />
+    </div>
+  );
 };
 
 export default App;
