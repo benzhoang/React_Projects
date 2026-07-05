@@ -1,9 +1,21 @@
 import { CheckCircle2, Circle, Filter, Plus, Trash2 } from "lucide-react";
 import TodoFilters from "./TodoFilters";
 import TodoForm from "./TodoForm";
+import { useSelector } from "react-redux";
+import {
+  selectFilter,
+  selectFilteredTodos,
+  selectTodos,
+  selectTodosStats,
+} from "../store/selectors";
 //import TodoItem from "./TodoItem";
 
 const TodoApp = () => {
+  const todos = useSelector(selectTodos);
+  const filteredTodos = useSelector(selectFilteredTodos);
+  const stats = useSelector(selectTodosStats);
+  const filter = useSelector(selectFilter);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 px-4 py-8">
       <div className="max-w-2xl mx-auto">
@@ -21,6 +33,7 @@ const TodoApp = () => {
             </h2>
             <div className="text-2xl font-bold text-green-600">
               {/* Stats Completed Logics */}
+              {stats.completionPercentage}%
             </div>
           </div>
 
@@ -29,6 +42,7 @@ const TodoApp = () => {
             <div
               className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full 
             transition-all duration-500 ease-out"
+              style={{ width: `${stats.completionPercentage}%` }}
             ></div>
           </div>
 
@@ -37,18 +51,21 @@ const TodoApp = () => {
             <div>
               <div className="text-2xl font-bold text-gray-800">
                 {/* Stats Total Logic */}
+                {stats.total}
               </div>
               <div className="text-sm text-gray-600">Total</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-800">
                 {/* Stats Active Logic */}
+                {stats.active}
               </div>
               <div className="text-sm text-gray-600">Active</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-800">
                 {/* Stats Completed Logic */}
+                {stats.completed}
               </div>
               <div className="text-sm text-gray-600">Completed</div>
             </div>
@@ -60,7 +77,7 @@ const TodoApp = () => {
           className="bg-white/90 backdrop-blur-sm rounded-b-2xl border border-gray-200
         shadow-lg overflow-hidden"
         >
-          {/* Active Bar */}
+          {/* Action Bar */}
           <div className="p-6 border-b border-gray-300">
             <div className="flex items-center justify-between mb-4">
               <button
