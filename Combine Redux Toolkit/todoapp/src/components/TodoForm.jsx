@@ -1,10 +1,40 @@
 import { Check, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
-const TodoForm = () => {
+const TodoForm = ({
+  OnSubmit,
+  OnCancel,
+  intialValue = "",
+  placeholder = "Add a new Todo...",
+}) => {
+  const dispatch = useDispatch(intialValue);
+  const [text, setText] = useState(intialValue);
+  const inputRef = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const trimmedText = text.trim();
+
+    if (trimmedText) {
+      if (OnSubmit) {
+        //For editing
+        OnSubmit(trimmedText);
+      } else {
+        dispatch();
+      }
+      setText("");
+    }
+  };
+
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3" onSubmit={handleSubmit}>
       <div className="flex-1">
         <input
+          ref={inputRef}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={placeholder}
           className="w-full px-4 py-3 border border-gray-400 rounded-lg focus:outline-none 
         focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-all 
         duration-200 bg-white/90 backdrop-blur-sm text-gray-800 placeholder-gray-600"
