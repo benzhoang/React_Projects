@@ -19,6 +19,7 @@ const TodoApp = () => {
   const filter = useSelector(selectFilter);
   const isAddingTodo = useSelector(selectIsAddingTodo);
   const dispatch = useDispatch();
+  console.log(todos);
 
   const handleAddTodoClick = () => {
     dispatch(setIsAddingTodo(true));

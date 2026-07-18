@@ -1,6 +1,7 @@
 import { Check, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { addTodo, setIsAddingTodo } from "../store/todoSlice";
 
 const TodoForm = ({
   OnSubmit,
@@ -21,14 +22,23 @@ const TodoForm = ({
         //For editing
         OnSubmit(trimmedText);
       } else {
-        dispatch();
+        dispatch(addTodo(trimmedText));
       }
       setText("");
     }
   };
 
+  const handleCancel = () => {
+    if (OnCancel) {
+      OnCancel();
+    } else {
+      dispatch(setIsAddingTodo(false));
+    }
+    setText("");
+  };
+
   return (
-    <div className="flex items-center gap-3" onSubmit={handleSubmit}>
+    <form className="flex items-center gap-3" onSubmit={handleSubmit}>
       <div className="flex-1">
         <input
           ref={inputRef}
@@ -55,11 +65,12 @@ const TodoForm = ({
           className="flex items-center justify-center w-10 h-10 bg-red-600 hover:bg-red-700 disabled:bg-gray-400
           disabled:cursor-not-allowed text-white rounded-lg transition-colors duration-200"
           title="Save todo"
+          onClick={handleCancel}
         >
           <X size={18} />
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

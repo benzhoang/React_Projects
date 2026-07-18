@@ -19,8 +19,8 @@ const todoSlice = createSlice({
         id: crypto.randomUUID(),
         text: action.payload.trim(),
         completed: false,
-        createdAt: new Date().toISOString,
-        updatedAt: new Date().toISOString,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
       state.items.unshift(newTodo);
       state.isAddingTodo = false;
