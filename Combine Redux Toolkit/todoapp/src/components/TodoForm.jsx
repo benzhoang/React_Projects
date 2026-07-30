@@ -37,6 +37,12 @@ const TodoForm = ({
     setText("");
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      handleCancel();
+    }
+  };
+
   return (
     <form className="flex items-center gap-3" onSubmit={handleSubmit}>
       <div className="flex-1">
@@ -45,6 +51,7 @@ const TodoForm = ({
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder={placeholder}
+          onKeyDown={handleKeyDown}
           className="w-full px-4 py-3 border border-gray-400 rounded-lg focus:outline-none 
         focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-all 
         duration-200 bg-white/90 backdrop-blur-sm text-gray-800 placeholder-gray-600"

@@ -10,7 +10,12 @@ import {
   selectTodosStats,
 } from "../store/selectors";
 import TodoItem from "./TodoItem";
-import { setIsAddingTodo } from "../store/todoSlice";
+import {
+  clearCompleted,
+  markAllComplete,
+  setFilter,
+  setIsAddingTodo,
+} from "../store/todoSlice";
 
 const TodoApp = () => {
   const todos = useSelector(selectTodos);
@@ -19,10 +24,21 @@ const TodoApp = () => {
   const filter = useSelector(selectFilter);
   const isAddingTodo = useSelector(selectIsAddingTodo);
   const dispatch = useDispatch();
-  console.log(todos);
+
+  const handleFilterChange = (newFilter) => {
+    dispatch(setFilter(newFilter));
+  };
 
   const handleAddTodoClick = () => {
     dispatch(setIsAddingTodo(true));
+  };
+
+  const handleMarkComplete = () => {
+    dispatch(markAllComplete());
+  };
+
+  const handleClearComplete = () => {
+    dispatch(clearCompleted());
   };
 
   return (
@@ -107,6 +123,7 @@ const TodoApp = () => {
                     <button
                       className="flex items-center gap-3 text-red-600 hover:text-red-700
                 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors duration-200 text-sm"
+                      onClick={handleClearComplete}
                     >
                       <Trash2 size={16} />
                       Clear Completed
@@ -117,6 +134,7 @@ const TodoApp = () => {
                     <button
                       className="flex items-center gap-3 text-green-600 hover:text-green-700
                 px-3 py-2 rounded-lg hover:bg-green-50 transition-colors duration-200 text-sm"
+                      onClick={handleMarkComplete}
                     >
                       <CheckCircle2 size={16} />
                       Mark All Completed
@@ -127,7 +145,11 @@ const TodoApp = () => {
             </div>
 
             {/* Todo Filter */}
-            <TodoFilters currentFilter={filter} stats={stats} />
+            <TodoFilters
+              currentFilter={filter}
+              stats={stats}
+              onFilterChange={handleFilterChange}
+            />
           </div>
           {/* Todo Form */}
           {isAddingTodo && (
@@ -167,7 +189,7 @@ const TodoApp = () => {
             ) : (
               <div className="divide-y divide-gray-300">
                 {filteredTodos.map((todo, index) => {
-                  <TodoItem key={todo.id} todo={todo} index={index} />;
+                  return <TodoItem key={todo.id} todo={todo} index={index} />;
                 })}
               </div>
             )}
@@ -175,7 +197,10 @@ const TodoApp = () => {
         </div>
 
         {/* Footer Info */}
-        <div className="text-center mt-6 text-sm text-gray-700">Footer</div>
+        <div className="text-center mt-6 text-sm text-gray-500">
+          © {new Date().getFullYear()} Todo App • Stay organized, stay
+          productive.
+        </div>
       </div>
     </div>
   );
